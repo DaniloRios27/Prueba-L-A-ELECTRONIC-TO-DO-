@@ -28,19 +28,30 @@ class _ToDoHomePageState extends State<ToDoHomePage> {
     super.initState();
   }
 
+   _removeActivity () {
+     List<ToDo> pending =[];
+     for (var todo in _todos) {
+       if (!todo.done) pending.add(todo);
+     }
+     setState(() => _todos = pending);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("To Do"),
+        actions: [
+          IconButton(
+            onPressed: _removeActivity, 
+            icon: Icon(Icons.delete)
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: _todos.length,
         itemBuilder: (context, index) {
-          return InkWell(
-            onLongPress: (){},
-            onTap: (){},
-            child: ListTile(
+          return ListTile(
               leading: Checkbox(
                 onChanged: (checked) {
                   setState(() {
@@ -57,7 +68,6 @@ class _ToDoHomePageState extends State<ToDoHomePage> {
                     : TextDecoration.none)
                 ),
               ),
-            ),
           );
         },
       ),
