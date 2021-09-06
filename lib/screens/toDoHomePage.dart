@@ -1,19 +1,46 @@
 import 'package:flutter/material.dart';
 
-class ToDoHomePage extends StatefulWidget {
-@override
-  _StateToDoHomePage createState() => _StateToDoHomePage();
+
+class ToDo {
+  
+  String what;
+  bool done;
+
+  ToDo(this.what) : done = false;
 }
 
-class _StateToDoHomePage extends State<ToDoHomePage> {
+class ToDoHomePage extends StatefulWidget {
+@override
+  _ToDoHomePageState createState() => _ToDoHomePageState();
+}
+
+class _ToDoHomePageState extends State<ToDoHomePage> {
+  
+  late List<ToDo> _todos;
+
+@override
+  void initState() {
+    _todos = [
+      ToDo("Primero"),
+      ToDo("Segunda"),
+      ToDo("Tercero"),
+    ];
+    super.initState();
+  }
+
 @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        title: Text("To Do"),
       ),
-      body: Container(
-
+      body: ListView.builder(
+          itemCount: _todos.length,
+          itemBuilder: (context, index){
+            return ListTile(
+              title: Text(_todos[index].what),
+            );
+          },
       ),
     );
   }
