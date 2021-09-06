@@ -18,7 +18,7 @@ class _ToDoHomePageState extends State<ToDoHomePage> {
   
   late List<ToDo> _todos;
 
-@override
+@override 
   void initState() {
     _todos = [
       ToDo("Primero"),
@@ -38,6 +38,14 @@ class _ToDoHomePageState extends State<ToDoHomePage> {
           itemCount: _todos.length,
           itemBuilder: (context, index){
             return ListTile(
+              leading: Checkbox(
+                onChanged: (checked){
+                  setState(() {
+                    _todos[index].done = checked!;
+                  });
+                },
+                value: _todos[index].done,
+              ),
               title: Text(_todos[index].what),
             );
           },
